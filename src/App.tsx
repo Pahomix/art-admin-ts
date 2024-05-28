@@ -19,6 +19,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/users" element={<Users/>}/>
             <Route path="/add/:modelType" element={<Edit />} />
+            <Route path="/edit/:modelType/:id" element={<Edit />} />
           </Route>
         </Routes>
       </BrowserRouter>

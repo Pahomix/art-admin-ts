@@ -1,6 +1,7 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 export default function Nav() {
+  const navigate = useNavigate();
 
   return (
     <>
@@ -21,44 +22,44 @@ export default function Nav() {
             </li>
             <li>
               <Link to="/sneakers" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <span className="flex-1 ms-3 whitespace-nowrap">Кроссовки</span>
+                <span className="flex-1 ms-3 whitespace-nowrap">Курсы</span>
               </Link>
             </li>
             <li>
               <Link to="/reviews" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <span className="flex-1 ms-3 whitespace-nowrap">Отзывы</span>
+                <span className="flex-1 ms-3 whitespace-nowrap">Модули курсов</span>
               </Link>
             </li>
             <li>
               <Link to="/categories" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <span className="flex-1 ms-3 whitespace-nowrap">Категории</span>
+                <span className="flex-1 ms-3 whitespace-nowrap">Материалы модулей</span>
               </Link>
             </li>
             <li>
               <a href="#"
                  className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <span className="flex-1 ms-3 whitespace-nowrap">История заказов</span>
+                <span className="flex-1 ms-3 whitespace-nowrap">Тесты модулей</span>
               </a>
             </li>
             <li>
               <Link to="/orders" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <span className="flex-1 ms-3 whitespace-nowrap">Заказы</span>
+                <span className="flex-1 ms-3 whitespace-nowrap">Отзывы</span>
               </Link>
             </li>
-            <li>
-              <Link to="/promotions" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <span className="flex-1 ms-3 whitespace-nowrap">Акции</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="/brands" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                <span className="flex-1 ms-3 whitespace-nowrap">Бренды</span>
-              </Link>
-            </li>
+            {/*<li>*/}
+            {/*  <Link to="/promotions" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">*/}
+            {/*    <span className="flex-1 ms-3 whitespace-nowrap">Акции</span>*/}
+            {/*  </Link>*/}
+            {/*</li>*/}
+            {/*<li>*/}
+            {/*  <Link to="/brands" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">*/}
+            {/*    <span className="flex-1 ms-3 whitespace-nowrap">Бренды</span>*/}
+            {/*  </Link>*/}
+            {/*</li>*/}
             <li>
               <button onClick={() => {
                 localStorage.clear();
-                window.location.href = '/';
+                navigate('/login')
               }} type="button"  className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                 <span className="flex-1 ms-3 whitespace-nowrap">Выход</span>
               </button>

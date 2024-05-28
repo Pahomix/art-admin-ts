@@ -4,18 +4,18 @@ import { useState } from "react";
 
 export default function Table<T extends { ID: number }>({ modelType, data, columns, onDelete }: TableProps<T>) {
   const [searchTerm, setSearchTerm] = useState('');
-  const [sortKey, setSortKey] = useState('');
+  const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
 
   const handleDelete = async (item: number) => {
     try {
-      onDelete(item)
+      await onDelete(item);
     } catch (e) {
-      throw e
+      throw e;
     }
-  }
+  };
 
   const filteredData = data.filter(item =>
     Object.values(item).some(value =>
@@ -23,18 +23,25 @@ export default function Table<T extends { ID: number }>({ modelType, data, colum
     )
   );
 
-  const sortedData = filteredData
-    .filter(item => item !== undefined) // Filter out any undefined items
-    .sort((a, b) => {
-      if (!sortKey) return 0;
-      const aValue = String(a[sortKey as keyof { ID: number }]).toLowerCase();
-      const bValue = String(b[sortKey as keyof { ID: number }]).toLowerCase();
-      if (sortOrder === 'asc') {
-        return aValue.localeCompare(bValue);
-      } else {
-        return bValue.localeCompare(aValue);
-      }
-    });
+  const sortedData = filteredData.sort((a, b) => {
+    if (!sortKey) return 0;
+
+    const aValue = a[sortKey as keyof T];
+    const bValue = b[sortKey as keyof T];
+
+    if (typeof aValue === 'number' && typeof bValue === 'number') {
+      return sortOrder === 'asc' ? aValue - bValue : bValue - aValue;
+    }
+
+    const aString = String(aValue).toLowerCase();
+    const bString = String(bValue).toLowerCase();
+
+    if (sortOrder === 'asc') {
+      return aString.localeCompare(bString);
+    } else {
+      return bString.localeCompare(aString);
+    }
+  });
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -52,7 +59,7 @@ export default function Table<T extends { ID: number }>({ modelType, data, colum
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Search..."
+          placeholder="Поиск..."
           className="rounded-md px-3 py-2 w-50 bg-gray-700 outline-none text-white"
         />
         <Link to={`/add/${modelType}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Добавить</Link>
@@ -92,7 +99,7 @@ export default function Table<T extends { ID: number }>({ modelType, data, colum
               {columns.map((column, colIndex) => (
                 <td key={colIndex} className="px-6 py-4">
                   {column.key === 'avatar' ? (
-                    <img src={row.avatar} alt="Avatar" className="h-12 w-12 rounded-full object-cover" />
+                    <img src={String(row[column.key])} alt="Avatar" className="h-12 w-12 rounded-full object-cover" />
                   ) : (
                     String(row[column.key])
                   )}
@@ -102,14 +109,14 @@ export default function Table<T extends { ID: number }>({ modelType, data, colum
                 <Link to={`/edit/${modelType}/${row.ID}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Изменить</Link>
               </td>
               <td className="px-6 py-4 text-right">
-                <button className="font-medium text-red-600 dark:text-red-500 hover:underline" onClick={() => handleDelete(row.ID)} type='button'>Удалить</button>
+                <button className="font-medium text-red-600 dark:text-red-500 hover:underline" onClick={() => handleDelete(row.ID)} type="button">Удалить</button>
               </td>
             </tr>
           ))}
           </tbody>
         </table>
       </div>
-      <div>
+      <div className="flex">
         {pageNumbers.map(number => (
           <button
             key={number}

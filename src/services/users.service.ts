@@ -52,5 +52,19 @@ export const UsersService = {
       console.error("Error creating user:", error);
       return null;
     }
-  }
+  },
+
+  updateUser: async (id: number, values: FormData): Promise<Users | null> => {
+    try {
+      const response = await axiosInstance.put(`/user/${id}`, values);
+      const data: Users = await response.data;
+      if (data.DeletedAt) {
+        data.DeletedAt = new Date(data.DeletedAt);
+      }
+      return data;
+    } catch (error) {
+      console.error("Error updating user:", error);
+      return null;
+    }
+  },
 };
