@@ -6,6 +6,7 @@ import Home from "./pages/Home.tsx";
 import Users from "./pages/Users.tsx";
 import Nav from "./components/nav/Nav.tsx";
 import Edit from "./pages/AddEdit.tsx";
+import Courses from "./pages/Courses.tsx";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route element={<ProtectedRoutes />} >
             <Route path="/" element={<Home />} />
             <Route path="/users" element={<Users/>}/>
+            <Route path="/courses" element={<Courses/>}/>
             <Route path="/add/:modelType" element={<Edit />} />
             <Route path="/edit/:modelType/:id" element={<Edit />} />
           </Route>
