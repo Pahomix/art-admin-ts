@@ -7,6 +7,8 @@ import Users from "./pages/Users.tsx";
 import Nav from "./components/nav/Nav.tsx";
 import Edit from "./pages/AddEdit.tsx";
 import Courses from "./pages/Courses.tsx";
+import CourseModules from "./pages/CourseModules.tsx";
+import ModuleMaterials from "./pages/ModuleMaterials.tsx";
 
 function App() {
   return (
@@ -20,6 +22,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/users" element={<Users/>}/>
             <Route path="/courses" element={<Courses/>}/>
+            <Route path="course_modules" element={<CourseModules/>}/>
+            <Route path="materials" element={<ModuleMaterials/>}/>
             <Route path="/add/:modelType" element={<Edit />} />
             <Route path="/edit/:modelType/:id" element={<Edit />} />
           </Route>

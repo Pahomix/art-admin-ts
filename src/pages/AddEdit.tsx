@@ -6,8 +6,9 @@ import {Course} from "../interfaces/course.ts";
 import {UsersService} from "../services/users.service.ts";
 import {CoursesService} from "../services/courses.service.ts";
 import CourseForm from "../components/form/CourseForm.tsx";
-
-
+import {CourseModule} from "../interfaces/courseModule.ts";
+import {CourseModulesService} from "../services/course.modules.ts";
+import CourseModuleForm from "../components/form/CourseModuleForm.tsx";
 
 
 export default function Edit() {
@@ -15,7 +16,7 @@ export default function Edit() {
   const isAddMode = pathname.includes("/add/")
   const { modelType, id } = useParams();
   const [initialValues, setInitialValues] = useState<
-    Users | Course | null>(null);
+    Users | Course | CourseModule | null>(null);
   const parsedId = Number(id);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -32,6 +33,10 @@ export default function Edit() {
             case 'courses':
               const course = await CoursesService.getCourseById(parsedId);
               setInitialValues(course);
+              break;
+            case 'course_modules':
+              const courseModule = await CourseModulesService.getCourseModuleById(parsedId);
+              setInitialValues(courseModule);
               break;
             default:
               break;
@@ -59,6 +64,9 @@ export default function Edit() {
       ) : null}
       {modelType === 'courses' ? (
         <CourseForm initialValues={initialValues as Course} modelType={modelType} />
+      ) : null}
+      {modelType === 'course_modules' ? (
+        <CourseModuleForm initialValues={initialValues as CourseModule} modelType={modelType} />
       ) : null}
     </>
   )

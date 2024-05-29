@@ -1,6 +1,6 @@
-import { TableProps } from "../../interfaces/table.ts";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import {TableProps} from "../../interfaces/table.ts";
+import {Link} from "react-router-dom";
+import {useState} from "react";
 
 export default function Table<T extends { ID: number }>({ modelType, data, columns, onDelete }: TableProps<T>) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -98,7 +98,7 @@ export default function Table<T extends { ID: number }>({ modelType, data, colum
             <tr key={rowIndex} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
               {columns.map((column, colIndex) => (
                 <td key={colIndex} className="px-6 py-4">
-                  {column.key === 'avatar' || column.key === 'background_image' ? (
+                  {column.key === 'avatar' || column.key === 'background_image' || column.key === 'content_url' ? (
                     <img src={String(row[column.key])} alt="Image" className="h-12 w-12 rounded-full object-cover" />
                   ) : (
                     String(row[column.key])

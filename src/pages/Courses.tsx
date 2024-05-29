@@ -8,7 +8,7 @@ import {Course} from "../interfaces/course.ts";
 
 export default function Courses () {
 
-  const [users, setUsers] = useState<Course[]>([])
+  const [courses, setCourses] = useState<Course[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<Error | null>(null)
 
@@ -17,7 +17,7 @@ export default function Courses () {
       try {
         setLoading(true);
         const data: Course[] = await CoursesService.getCourses();
-        setUsers(data);
+        setCourses(data);
         setLoading(false);
       } catch (error) {
         setError(error as Error);
@@ -32,7 +32,7 @@ export default function Courses () {
     try {
       await CoursesService.deleteCourse(id);
       const data: Course[] = await CoursesService.getCourses();
-      setUsers(data);
+      setCourses(data);
     } catch (error) {
       setError(error as Error);
     }
@@ -53,7 +53,7 @@ export default function Courses () {
     <>
       {loading && "Loading..."}
       {error && "Error"}
-      <Table onDelete={handleDelete} modelType={"courses"} data={users} columns={columns} />
+      <Table onDelete={handleDelete} modelType={"courses"} data={courses} columns={columns} />
     </>
   )
 }

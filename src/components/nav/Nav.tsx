@@ -26,12 +26,12 @@ export default function Nav() {
               </Link>
             </li>
             <li>
-              <Link to="/reviews" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+              <Link to="/course_modules" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                 <span className="flex-1 ms-3 whitespace-nowrap">Модули курсов</span>
               </Link>
             </li>
             <li>
-              <Link to="/categories" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+              <Link to="/materials" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                 <span className="flex-1 ms-3 whitespace-nowrap">Материалы модулей</span>
               </Link>
             </li>
