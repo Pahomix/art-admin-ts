@@ -65,19 +65,20 @@ export default function ModuleMaterialForm({ initialValues }: CourseModuleFormPr
 
   const onSubmit = async (data: FormFields) => {
     setLoading(true);
+    const formData = new FormData();
+    formData.append('course_id', data.course_id.toString());
+    formData.append('module_id', data.module_id.toString());
+    formData.append('title', data.title);
+    formData.append('content', data.content);
+    if (data.content_url && data.content_url.length > 0) {
+      formData.append('content_url', data.content_url[0]);
+    }
     try {
       if (isAddMode) {
-        const formData = new FormData();
-        formData.append('course_id', data.course_id.toString());
-        formData.append('module_id', data.module_id.toString());
-        formData.append('title', data.title);
-        formData.append('content', data.content);
-        if (data.content_url && data.content_url.length > 0) {
-          formData.append('content_url', data.content_url[0]);
-        }
+
         await ModuleMaterialsService.createMaterial(formData);
       } else {
-        await ModuleMaterialsService.updateMaterial(initialValues.ID, data);
+        await ModuleMaterialsService.updateMaterial(initialValues.ID, formData);
       }
       navigate('/materials');
     } catch (error) {
