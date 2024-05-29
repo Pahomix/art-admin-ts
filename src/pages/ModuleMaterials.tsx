@@ -4,6 +4,7 @@ import Table from "../components/table/Table.tsx";
 import {CoursesService} from "../services/courses.service.ts";
 import {CourseModuleMaterials} from "../interfaces/courseModuleMaterials.ts";
 import {ModuleMaterialsService} from "../services/module.materials.service.ts";
+import {CourseModulesService} from "../services/course.modules.ts";
 
 export default function ModuleMaterials() {
   const [moduleMaterials, setModuleMaterials] = useState<CourseModuleMaterials[]>([]);
@@ -14,18 +15,20 @@ export default function ModuleMaterials() {
     const fetchData = async () => {
       try {
         setLoading(true)
-        const [moduleMaterialsData, coursesData] = await Promise.all([
+        const [moduleMaterialsData, modulesData ,coursesData] = await Promise.all([
           ModuleMaterialsService.getMaterials(),
+          CourseModulesService.getCourseModules(),
           CoursesService.getCourses(),
         ]);
 
+        const modulesMap = new Map(modulesData.map(module => [module.ID, module.title]));
         const courseMap = new Map(coursesData.map(course => [course.ID, course.name]));
 
         const updatedCourseModulesData = moduleMaterialsData.map(courseModule => ({
           ...courseModule,
           course_id: courseMap.get(courseModule.course_id) || "Unknown Course",
+          module_id: modulesMap.get(courseModule.module_id) || "Unknown Module",
         }));
-
         setModuleMaterials(updatedCourseModulesData);
         setLoading(false);
       } catch (error) {
@@ -44,15 +47,18 @@ export default function ModuleMaterials() {
 
       // Re-fetch the courses and update the course map
       const coursesData = await CoursesService.getCourses();
+      const modulesData = await CourseModulesService.getCourseModules();
+      const modulesMap = new Map(modulesData.map(module => [module.ID, module.title]));
       const courseMap = new Map(coursesData.map(course => [course.ID, course.name]));
 
       // Replace course_id with course name in courseModulesData
-      const updatedCourseModulesData = materialsData.map(courseModule => ({
+      const updatedModuleMaterialsData = materialsData.map(courseModule => ({
         ...courseModule,
         course_id: courseMap.get(courseModule.course_id) || "Unknown Course",
+        module_id: modulesMap.get(courseModule.module_id) || "Unknown Module",
       }));
 
-      setCourseModules(updatedCourseModulesData);
+      setModuleMaterials(updatedModuleMaterialsData);
     } catch (error) {
       setError(error as Error);
     }
@@ -64,6 +70,7 @@ export default function ModuleMaterials() {
     { key: "content", label: "Контент" },
     { key: "content_url", label: "Фото" },
     { key: "course_id", label: "Курс" },
+    { key: "module_id", label: "Модуль" },
     // { key: "DeletedAt", label: "Дата удаления"},
     // { key: "CreatedAt", label: "Дата создания"},
     // { key: "UpdatedAt", label: "Дата обновления"},

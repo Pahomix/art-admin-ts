@@ -21,7 +21,7 @@ export const ModuleMaterialsService = {
     }
   },
 
-  createMaterial: async (values: any) => {
+  createMaterial: async (values: FormData) => {
     try {
       const response = await axiosInstance.post(`/course/module/material`, values);
       return response.data;
@@ -31,7 +31,7 @@ export const ModuleMaterialsService = {
     }
   },
 
-  updateMaterial: async (id: number, values: any) => {
+  updateMaterial: async (id: number, values: FormData) => {
     try {
       const response = await axiosInstance.put(`/course/module/material/${id}`, values);
       return response.data;
