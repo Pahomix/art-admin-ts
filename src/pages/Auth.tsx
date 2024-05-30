@@ -33,9 +33,9 @@ export default function Auth () {
         <div className="flex h-screen flex-col items-center justify-center">
           <div className="max-h-auto mx-auto max-w-xl">
             <div className="mb-8 space-y-3">
-              <p className="text-xl font-bold text-center">ALEXEY EFREMOV</p>
+              <p className="text-xl font-bold text-center">LEGACY LENS</p>
               <p className="text-gray-500">
-                Магия кроссовок в простом - играй красиво
+                Эти броуки предлагают, но не смогут расплатиться
               </p>
             </div>
             <form className="w-full" onSubmit={authenticationHandler}>

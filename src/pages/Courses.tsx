@@ -1,4 +1,3 @@
-
 import {useEffect, useState} from "react";
 import {TableColumn} from "../interfaces/table.ts";
 import Table from "../components/table/Table.tsx";
@@ -45,7 +44,7 @@ export default function Courses () {
     { key: "description", label: "Описание курса"},
     // { key: "DeletedAt", label: "Дата удаления"},
     // { key: "CreatedAt", label: "Дата создания"},
-    // { key: "UpdatedAt", label: "Дата обновления"},
+    // { key: "updatedAt", label: "Дата обновления"},
 
   ];
 

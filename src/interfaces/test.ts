@@ -3,7 +3,7 @@ export interface Test {
   CreatedAt: Date;
   UpdatedAt: Date;
   DeletedAt: Date | null;
-  course_id: number;
+  module_id: number;
   title: string;
   Questions: Question[];
 }

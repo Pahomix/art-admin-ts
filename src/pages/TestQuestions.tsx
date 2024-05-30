@@ -1,22 +1,23 @@
 import {useEffect, useState} from "react";
 import {TableColumn} from "../interfaces/table.ts";
 import Table from "../components/table/Table.tsx";
-import {Test} from "../interfaces/test.ts";
+import {Question, Test} from "../interfaces/test.ts";
 import {CourseTestsService} from "../services/course.tests.service.ts";
+import {TestQuestionsService} from "../services/test.questions.service.ts";
 
 
-export default function CourseTests () {
+export default function TestQuestions () {
 
-  const [tests, setTests] = useState<Test[]>([])
+  const [questions, setQuestions ] = useState<Question[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<Error | null>(null)
 
   useEffect(() => {
-    const fetchTests = async () => {
+    const fetchQuestions = async () => {
       try {
         setLoading(true);
-        const data: Test[] = await CourseTestsService.getCourseTests();
-        setTests(data);
+        const data: Question[] = await TestQuestionsService.getTestQuestions();
+        setQuestions(data);
         setLoading(false);
       } catch (error) {
         setError(error as Error);
@@ -24,24 +25,24 @@ export default function CourseTests () {
       }
     };
 
-    fetchTests();
+    fetchQuestions();
   }, []);
 
   const handleDelete = async (id: number) => {
     try {
       await CourseTestsService.deleteCourseTest(id);
       const data: Test[] = await CourseTestsService.getCourseTests();
-      setTests(data);
+      setQuestions(data);
     } catch (error) {
       setError(error as Error);
     }
   };
 
-  const columns: TableColumn<Test>[] = [
+  const columns: TableColumn<Question>[] = [
     { key: "ID", label: "ID" },
-    { key: "title", label: "Заголовок" },
-    // { key: "Questions", label: "Вопросы"},
-    { key: "module_id", label: "Модуль" },
+    { key: "content", label: "Заглавие вопроса" },
+    { key: "test_id", label: "ID теста" },
+    { key: "answer_id", label: "ID правильного ответа" },
     // { key: "DeletedAt", label: "Дата удаления"},
     // { key: "CreatedAt", label: "Дата создания"},
     // { key: "updatedAt", label: "Дата обновления"},
@@ -52,7 +53,7 @@ export default function CourseTests () {
     <>
       {loading && "Loading..."}
       {error && "Error"}
-      <Table onDelete={handleDelete} modelType={"tests"} data={tests} columns={columns} />
+      <Table onDelete={handleDelete} modelType={"questions"} data={questions} columns={columns} />
     </>
   )
 }

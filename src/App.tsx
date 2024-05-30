@@ -9,6 +9,8 @@ import Edit from "./pages/AddEdit.tsx";
 import Courses from "./pages/Courses.tsx";
 import CourseModules from "./pages/CourseModules.tsx";
 import ModuleMaterials from "./pages/ModuleMaterials.tsx";
+import CourseTests from "./pages/CourseTests.tsx";
+import TestQuestions from "./pages/TestQuestions.tsx";
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
             <Route path="/courses" element={<Courses/>}/>
             <Route path="course_modules" element={<CourseModules/>}/>
             <Route path="materials" element={<ModuleMaterials/>}/>
+            <Route path="tests" element={<CourseTests/>}/>
+            <Route path="questions" element={<TestQuestions/>}/>
             <Route path="/add/:modelType" element={<Edit />} />
             <Route path="/edit/:modelType/:id" element={<Edit />} />
           </Route>

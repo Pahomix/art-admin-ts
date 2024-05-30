@@ -75,7 +75,6 @@ export default function ModuleMaterialForm({ initialValues }: CourseModuleFormPr
     }
     try {
       if (isAddMode) {
-
         await ModuleMaterialsService.createMaterial(formData);
       } else {
         await ModuleMaterialsService.updateMaterial(initialValues.ID, formData);
