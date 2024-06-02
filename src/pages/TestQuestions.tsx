@@ -1,16 +1,13 @@
 import {useEffect, useState} from "react";
 import {TableColumn} from "../interfaces/table.ts";
 import Table from "../components/table/Table.tsx";
-import {Question, Test} from "../interfaces/test.ts";
-import {CourseTestsService} from "../services/course.tests.service.ts";
+import {Question} from "../interfaces/test.ts";
 import {TestQuestionsService} from "../services/test.questions.service.ts";
 
-
-export default function TestQuestions () {
-
-  const [questions, setQuestions ] = useState<Question[]>([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<Error | null>(null)
+export default function TestQuestions() {
+  const [questions, setQuestions] = useState<Question[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -30,9 +27,9 @@ export default function TestQuestions () {
 
   const handleDelete = async (id: number) => {
     try {
-      await CourseTestsService.deleteCourseTest(id);
-      const data: Test[] = await CourseTestsService.getCourseTests();
-      setQuestions(data);
+      await TestQuestionsService.deleteTestQuestion(id);
+      const updatedQuestions: Question[] = questions.filter(question => question.ID !== id);
+      setQuestions(updatedQuestions);
     } catch (error) {
       setError(error as Error);
     }
@@ -40,20 +37,19 @@ export default function TestQuestions () {
 
   const columns: TableColumn<Question>[] = [
     { key: "ID", label: "ID" },
-    { key: "content", label: "Заглавие вопроса" },
-    { key: "test_id", label: "ID теста" },
-    { key: "answer_id", label: "ID правильного ответа" },
+    { key: "content", label: "Вопрос" },
+    { key: "test_id", label: "Тест" },
+    { key: "answer", label: "Правильный ответ" },
     // { key: "DeletedAt", label: "Дата удаления"},
     // { key: "CreatedAt", label: "Дата создания"},
     // { key: "updatedAt", label: "Дата обновления"},
-
   ];
 
   return (
     <>
-      {loading && "Loading..."}
-      {error && "Error"}
+      {loading && <p>Loading...</p>}
+      {error && <p>Error: {error.message}</p>}
       <Table onDelete={handleDelete} modelType={"questions"} data={questions} columns={columns} />
     </>
-  )
+  );
 }

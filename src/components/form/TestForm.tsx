@@ -74,6 +74,7 @@ export default function TestForm({ initialValues }: TestFormProps) {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-10 space-y-3">
             <div className="space-y-2">
+              <label className="text-sm font-medium">Заголовок теста</label>
               <input
                 {...register('title')}
                 className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
@@ -83,6 +84,7 @@ export default function TestForm({ initialValues }: TestFormProps) {
               {errors.title && <p className="text-red-600">{errors.title.message}</p>}
             </div>
             <div className="space-y-2">
+              <label className="text-sm font-medium">Модуль</label>
               <select
                 {...register('module_id')}
                 className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
@@ -97,7 +99,8 @@ export default function TestForm({ initialValues }: TestFormProps) {
               {errors.module_id && <p className="text-red-600">{errors.module_id.message}</p>}
             </div>
           </div>
-          <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">
+          <button type="submit" className="h-10 px-4 text-sm font-medium text-white bg-blue-600 rounded-md
+          focus:outline-none focus-visible:ring-2  focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
             {isAddMode ? 'Создать' : 'Сохранить'}
           </button>
         </form>

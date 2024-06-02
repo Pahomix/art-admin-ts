@@ -5,8 +5,7 @@ export const TestQuestionsService = {
   getTestQuestions: async (): Promise<Question[]> => {
     try {
       const response = await axiosInstance.get(`/course/test/question`);
-      const data: Question[] = await response.data;
-      return data;
+      return response.data;
     } catch (error) {
       console.error("Error fetching test questions:", error);
       return [];
@@ -16,30 +15,27 @@ export const TestQuestionsService = {
   getTestQuestionById: async (id: number): Promise<Question | null> => {
     try {
       const response = await axiosInstance.get(`/course/test/question/${id}`);
-      const data: Question = await response.data;
-      return data;
+      return response.data;
     } catch (error) {
       console.error("Error fetching test question:", error);
       return null;
     }
   },
 
-  createTestQuestion: async (values: any): Promise<Question | null> => {
+  createTestQuestion: async (values: Question): Promise<Question | null> => {
     try {
       const response = await axiosInstance.post(`/course/test/question`, values);
-      const data: Question = await response.data;
-      return data;
+      return response.data;
     } catch (error) {
       console.error("Error creating test question:", error);
       return null;
     }
   },
 
-  updateTestQuestion: async (id: number, values: FormData): Promise<Question | null> => {
+  updateTestQuestion: async (id: number, values: Question): Promise<Question | null> => {
     try {
       const response = await axiosInstance.put(`/course/test/question/${id}`, values);
-      const data: Question = await response.data;
-      return data;
+      return response.data;
     } catch (error) {
       console.error("Error updating test question:", error);
       return null;
@@ -53,4 +49,4 @@ export const TestQuestionsService = {
       console.error("Error deleting test question:", error);
     }
   }
-}
+};

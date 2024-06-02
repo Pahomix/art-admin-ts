@@ -5,7 +5,7 @@ export interface Test {
   DeletedAt: Date | null;
   module_id: number;
   title: string;
-  Questions: Question[];
+  questions: Question[];
 }
 
 export interface Question {
@@ -16,7 +16,7 @@ export interface Question {
   test_id: number;
   content: string;
   options: Option[];
-  answer_id: number;
+  answer: string;
 }
 
 export interface Option {

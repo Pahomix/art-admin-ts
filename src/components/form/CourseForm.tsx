@@ -1,7 +1,7 @@
-import { useForm } from "react-hook-form";
+import {useForm} from "react-hook-form";
 import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useState } from "react";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {CoursesService} from "../../services/courses.service.ts";
 import {Course} from "../../interfaces/course.ts";
@@ -79,6 +79,7 @@ export default function CourseForm({ initialValues }: CourseFormProps) {
           <div className="mb-10 space-y-3">
             <div className="space-y-1">
               <div className="space-y-2">
+                <label className="text-sm font-medium">Название курса</label>
                 <input {...register('name')} className="border-input bg-background ring-offset-background
                       placeholder:text-muted-foreground focus-visible:ring-ring
                       flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0
@@ -87,14 +88,16 @@ export default function CourseForm({ initialValues }: CourseFormProps) {
                       disabled:cursor-not-allowed disabled:opacity-50" type="text" placeholder="Название"/>
               </div>
               <div className="space-y-2">
-                <input {...register('description')} className="border-input bg-background ring-offset-background
+                <label className="text-sm font-medium">Описание курса</label>
+                <textarea {...register('description')} className="border-input bg-background ring-offset-background
                       placeholder:text-muted-foreground focus-visible:ring-ring
-                      flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0
+                      flex w-full rounded-md border px-3 py-2 text-sm file:border-0
                       file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none
                       focus-visible:ring-2 focus-visible:ring-offset-2
-                      disabled:cursor-not-allowed disabled:opacity-50" type="text" placeholder="Описание курса"/>
+                      disabled:cursor-not-allowed disabled:opacity-50 h-auto min-h-32" placeholder="Описание курса"/>
               </div>
               <div className="space-y-2">
+                <label className="text-sm font-medium">Изображение</label>
                 <input {...register('background_image')} className="border-input bg-background ring-offset-background
                       placeholder:text-muted-foreground focus-visible:ring-ring
                       flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0
@@ -104,7 +107,8 @@ export default function CourseForm({ initialValues }: CourseFormProps) {
               </div>
             </div>
           </div>
-          <button type="submit" disabled={loading}>
+          <button type="submit" disabled={loading} className="h-10 px-4 text-sm font-medium text-white bg-blue-600 rounded-md
+          focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
             {loading ? 'Загрузка...' : 'Подтвердить'}
           </button>
         </form>

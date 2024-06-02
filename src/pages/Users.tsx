@@ -44,7 +44,7 @@ export default function Users () {
     { key: "email", label: "Email" },
     { key: "password", label: "Пароль"},
     { key: "role", label: "Роль"},
-    { key: "progress", label: "Прогресс"},
+    // { key: "progress", label: "Прогресс"},
     // { key: "courses", label: "Курсы"},
     // { key: "DeletedAt", label: "Дата удаления"},
     // { key: "CreatedAt", label: "Дата создания"},

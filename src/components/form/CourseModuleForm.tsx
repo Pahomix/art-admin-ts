@@ -76,6 +76,7 @@ export default function CourseModuleForm({ initialValues }: CourseModuleFormProp
           <div className="mb-10 space-y-3">
             <div className="space-y-1">
               <div className="space-y-2">
+                <label className="text-sm font-medium">Название модуля</label>
                 <input
                   {...register('title')}
                   className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
@@ -85,6 +86,7 @@ export default function CourseModuleForm({ initialValues }: CourseModuleFormProp
                 {errors.title && <p className="text-red-600">{errors.title.message}</p>}
               </div>
               <div className="space-y-2">
+                <label className="text-sm font-medium">Описание модуля</label>
                 <input
                   {...register('description')}
                   className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
@@ -94,6 +96,7 @@ export default function CourseModuleForm({ initialValues }: CourseModuleFormProp
                 {errors.description && <p className="text-red-600">{errors.description.message}</p>}
               </div>
               <div className="space-y-2">
+                <label className="text-sm font-medium">Курс</label>
                 <select
                   {...register('course_id')}
                   className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
@@ -109,7 +112,8 @@ export default function CourseModuleForm({ initialValues }: CourseModuleFormProp
               </div>
             </div>
           </div>
-          <button type="submit" disabled={loading} className="bg-blue-500 text-white px-4 py-2 rounded-md">
+          <button type="submit" disabled={loading} className="h-10 px-4 text-sm font-medium text-white bg-blue-600 rounded-md
+          focus:outline-none focus-visible:ring-2  focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
             {loading ? 'Загрузка...' : 'Подтвердить'}
           </button>
         </form>

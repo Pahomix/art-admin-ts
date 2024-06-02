@@ -3,6 +3,7 @@ import {TableColumn} from "../interfaces/table.ts";
 import Table from "../components/table/Table.tsx";
 import {Test} from "../interfaces/test.ts";
 import {CourseTestsService} from "../services/course.tests.service.ts";
+import {CourseModulesService} from "../services/course.modules.ts";
 
 
 export default function CourseTests () {
@@ -15,15 +16,32 @@ export default function CourseTests () {
     const fetchTests = async () => {
       try {
         setLoading(true);
-        const data: Test[] = await CourseTestsService.getCourseTests();
-        setTests(data);
+        const [tests, modules] = await Promise.all([
+          CourseTestsService.getCourseTests(),
+          CourseModulesService.getCourseModules()
+        ]);
+        const data = tests.map((test) => ({
+          ...test,
+          module_id: modules.find((module) => module.ID === test.module_id)?.title
+        }));
+
+        const transformedData = data.map((test) => ({
+          ...test,
+          questions: test.questions?.map((question) => ({
+            content: question.content,
+            test_id: question.test_id,
+            answer: question.answer
+          }))
+        }));
+
+        setTests(transformedData);
         setLoading(false);
       } catch (error) {
         setError(error as Error);
+        console.error(error);
         setLoading(false);
       }
     };
-
     fetchTests();
   }, []);
 
@@ -40,7 +58,7 @@ export default function CourseTests () {
   const columns: TableColumn<Test>[] = [
     { key: "ID", label: "ID" },
     { key: "title", label: "Заголовок" },
-    // { key: "Questions", label: "Вопросы"},
+    { key: "questions",  label: "Вопросы"},
     { key: "module_id", label: "Модуль" },
     // { key: "DeletedAt", label: "Дата удаления"},
     // { key: "CreatedAt", label: "Дата создания"},

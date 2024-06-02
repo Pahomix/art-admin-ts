@@ -99,17 +99,36 @@ export default function Table<T extends { ID: number }>({ modelType, data, colum
               {columns.map((column, colIndex) => (
                 <td key={colIndex} className="px-6 py-4">
                   {column.key === 'avatar' || column.key === 'background_image' || column.key === 'content_url' ? (
-                    <img src={String(row[column.key])} alt="Image" className="h-12 w-12 rounded-full object-cover" />
+                    <img src={String(row[column.key])} alt="Image" className="h-12 w-12 rounded-full object-cover"/>
+                  ) : column.key === 'questions' ? (
+                    <ul>
+                      {row[column.key]?.map((question, index) => (
+                        <li key={index} className="mb-4">
+                          <div className="text-gray-800 dark:text-gray-200">
+                            <span className="font-semibold">Вопрос:</span> {question.content}
+                          </div>
+                          <div className="text-gray-600 dark:text-gray-400">
+                            <span className="font-semibold">Тест:</span> {question.test_id}
+                          </div>
+                          <div className="text-gray-600 dark:text-gray-400">
+                            <span className="font-semibold">Правильный ответ:</span> {question.answer}
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
                   ) : (
                     String(row[column.key])
                   )}
                 </td>
               ))}
               <td className="px-6 py-4 text-right">
-                <Link to={`/edit/${modelType}/${row.ID}`} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Изменить</Link>
+                <Link to={`/edit/${modelType}/${row.ID}`}
+                      className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Изменить</Link>
               </td>
               <td className="px-6 py-4 text-right">
-                <button className="font-medium text-red-600 dark:text-red-500 hover:underline" onClick={() => handleDelete(row.ID)} type="button">Удалить</button>
+                <button className="font-medium text-red-600 dark:text-red-500 hover:underline"
+                        onClick={() => handleDelete(row.ID)} type="button">Удалить
+                </button>
               </td>
             </tr>
           ))}

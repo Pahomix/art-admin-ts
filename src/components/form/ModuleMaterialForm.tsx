@@ -19,8 +19,8 @@ interface FormFields {
 }
 
 const schema = yup.object({
-  title: yup.string().required('Необходимо ввести название модуля'),
-  content: yup.string().required('Необходимо ввести описание модуля'),
+  // title: yup.string().required('Необходимо ввести название модуля'),
+  content: yup.string().required('Необходимо ввести описание материала'),
   course_id: yup.number().required('Необходимо выбрать курс'),
   module_id: yup.number().required('Необходимо выбрать модуль'),
 }).required();
@@ -94,6 +94,7 @@ export default function ModuleMaterialForm({ initialValues }: CourseModuleFormPr
           <div className="mb-10 space-y-3">
             <div className="space-y-1">
               <div className="space-y-2">
+                <label className="text-sm font-medium">Заголовок</label>
                 <input
                   {...register('title')}
                   className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
@@ -103,6 +104,7 @@ export default function ModuleMaterialForm({ initialValues }: CourseModuleFormPr
                 {errors.title && <p className="text-red-600">{errors.title.message}</p>}
               </div>
               <div className="space-y-2">
+                <label className="text-sm font-medium">Контент</label>
                 <input
                   {...register('content')}
                   className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
@@ -112,6 +114,7 @@ export default function ModuleMaterialForm({ initialValues }: CourseModuleFormPr
                 {errors.content && <p className="text-red-600">{errors.content.message}</p>}
               </div>
               <div className="space-y-2">
+                <label className="text-sm font-medium">Курс</label>
                 <select
                   {...register('course_id')}
                   className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
@@ -126,6 +129,7 @@ export default function ModuleMaterialForm({ initialValues }: CourseModuleFormPr
                 {errors.course_id && <p className="text-red-600">{errors.course_id.message}</p>}
               </div>
               <div className="space-y-2">
+                <label className="text-sm font-medium">Модуль</label>
                 <select
                   {...register('module_id')}
                   className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
@@ -140,6 +144,7 @@ export default function ModuleMaterialForm({ initialValues }: CourseModuleFormPr
                 {errors.module_id && <p className="text-red-600">{errors.module_id.message}</p>}
               </div>
               <div className="space-y-2">
+                <label className="text-sm font-medium">Фото</label>
                 <input {...register('content_url')} className="border-input bg-background ring-offset-background
                       placeholder:text-muted-foreground focus-visible:ring-ring
                       flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0
@@ -149,7 +154,8 @@ export default function ModuleMaterialForm({ initialValues }: CourseModuleFormPr
               </div>
             </div>
           </div>
-          <button type="submit" disabled={loading} className="bg-blue-500 text-white px-4 py-2 rounded-md">
+          <button type="submit" disabled={loading} className="h-10 px-4 text-sm font-medium text-white bg-blue-600 rounded-md
+          focus:outline-none focus-visible:ring-2  focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
             {loading ? 'Загрузка...' : 'Подтвердить'}
           </button>
         </form>

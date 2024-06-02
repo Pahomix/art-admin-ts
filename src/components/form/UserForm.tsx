@@ -1,9 +1,9 @@
-import { useForm } from "react-hook-form";
+import {useForm} from "react-hook-form";
 import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { Users } from "../../interfaces/users.ts";
-import { UsersService } from "../../services/users.service.ts";
-import { useState } from "react";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {Users} from "../../interfaces/users.ts";
+import {UsersService} from "../../services/users.service.ts";
+import {useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 
 interface FormFields {
@@ -85,6 +85,7 @@ export default function UserForm({ initialValues }: UserFormProps) {
           <div className="mb-10 space-y-3">
             <div className="space-y-1">
               <div className="space-y-2">
+                <label className="text-sm font-medium">Имя пользователя</label>
                 <input {...register('username')} className="border-input bg-background ring-offset-background
                       placeholder:text-muted-foreground focus-visible:ring-ring
                       flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0
@@ -93,6 +94,7 @@ export default function UserForm({ initialValues }: UserFormProps) {
                       disabled:cursor-not-allowed disabled:opacity-50" type="text" placeholder="Имя пользователя"/>
               </div>
               <div className="space-y-2">
+                <label className="text-sm font-medium">Email</label>
                 <input {...register('email')} className="border-input bg-background ring-offset-background
                       placeholder:text-muted-foreground focus-visible:ring-ring
                       flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0
@@ -101,6 +103,7 @@ export default function UserForm({ initialValues }: UserFormProps) {
                       disabled:cursor-not-allowed disabled:opacity-50" type="text" placeholder="Email"/>
               </div>
               <div className="space-y-2">
+                <label className="text-sm font-medium">Пароль</label>
                 <input {...register('password')} className="border-input bg-background ring-offset-background
                       placeholder:text-muted-foreground focus-visible:ring-ring
                       flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0
@@ -109,6 +112,7 @@ export default function UserForm({ initialValues }: UserFormProps) {
                       disabled:cursor-not-allowed disabled:opacity-50" type="password" placeholder="Пароль"/>
               </div>
               <div className="space-y-2">
+                <label className="text-sm font-medium">Роль</label>
                 <input {...register('role')} className="border-input bg-background ring-offset-background
                       placeholder:text-muted-foreground focus-visible:ring-ring
                       flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0
@@ -117,6 +121,7 @@ export default function UserForm({ initialValues }: UserFormProps) {
                       disabled:cursor-not-allowed disabled:opacity-50" type="text" placeholder="Роль"/>
               </div>
               <div className="space-y-2">
+                <label className="text-sm font-medium">Аватар</label>
                 <input {...register('avatar')} className="border-input bg-background ring-offset-background
                       placeholder:text-muted-foreground focus-visible:ring-ring
                       flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0
@@ -126,7 +131,8 @@ export default function UserForm({ initialValues }: UserFormProps) {
               </div>
             </div>
           </div>
-          <button type="submit" disabled={loading}>
+          <button type="submit" disabled={loading} className="h-10 px-4 text-sm font-medium text-white bg-blue-600 rounded-md
+          focus:outline-none focus-visible:ring-2  focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50">
             {loading ? 'Загрузка...' : 'Подтвердить'}
           </button>
         </form>

@@ -12,9 +12,11 @@ import CourseModuleForm from "../components/form/CourseModuleForm.tsx";
 import {CourseModuleMaterials} from "../interfaces/courseModuleMaterials.ts";
 import {ModuleMaterialsService} from "../services/module.materials.service.ts";
 import ModuleMaterialForm from "../components/form/ModuleMaterialForm.tsx";
-import {Test} from "../interfaces/test.ts";
+import {Option, Question, Test} from "../interfaces/test.ts";
 import {CourseTestsService} from "../services/course.tests.service.ts";
 import TestForm from "../components/form/TestForm.tsx";
+import {TestQuestionsService} from "../services/test.questions.service.ts";
+import QuestionForm from "../components/form/QuestionForm.tsx";
 
 
 export default function Edit() {
@@ -22,7 +24,7 @@ export default function Edit() {
   const isAddMode = pathname.includes("/add/")
   const { modelType, id } = useParams();
   const [initialValues, setInitialValues] = useState<
-    Users | Course | CourseModule | CourseModuleMaterials | Test | null>(null);
+    Users | Course | CourseModule | CourseModuleMaterials | Test | Question | Option | null>(null);
   const parsedId = Number(id);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -51,6 +53,10 @@ export default function Edit() {
             case 'tests':
               const test = await CourseTestsService.getCourseTestById(parsedId);
               setInitialValues(test);
+              break;
+            case 'questions':
+              const question = await TestQuestionsService.getTestQuestionById(parsedId);
+              setInitialValues(question);
               break;
             default:
               break;
@@ -87,6 +93,9 @@ export default function Edit() {
       ) : null}
       {modelType === 'tests' ? (
         <TestForm initialValues={initialValues as Test} modelType={modelType} />
+      ) : null}
+      {modelType === 'questions' ? (
+        <QuestionForm initialValues={initialValues as Question} modelType={modelType} />
       ) : null}
     </>
   )
